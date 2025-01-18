@@ -1,31 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Conversion</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Weight Converter</title>
 </head>
 <body>
-    <h1>Weight Converter</h1>
+    <h1>Weight Conversion</h1>
     <form action="/weight" method="POST">
-        <input type="number" name="value" placeholder="Enter value" required>
-        <select name="fromUnit">
-            <option value="mg">Milligram</option>
-            <option value="g">Gram</option>
-            <option value="kg">Kilogram</option>
-            <option value="oz">Ounce</option>
-            <option value="lb">Pound</option>
-        </select>
-        <select name="toUnit">
-            <option value="mg">Milligram</option>
-            <option value="g">Gram</option>
-            <option value="kg">Kilogram</option>
-            <option value="oz">Ounce</option>
-            <option value="lb">Pound</option>
-        </select>
-        <button type="submit">Convert</button>
+        <div>
+            <label for="unit1">From:</label>
+            <select name="unit1" id="unit1" onchange="updateUnit2Options()">
+                <option value="g" <%= typeof unit1 !== 'undefined' && unit1 === 'g' ? 'selected' : '' %>>Grams (g)</option>
+                <option value="kg" <%= typeof unit1 !== 'undefined' && unit1 === 'kg' ? 'selected' : '' %>>Kilograms (kg)</option>
+                <option value="lb" <%= typeof unit1 !== 'undefined' && unit1 === 'lb' ? 'selected' : '' %>>Pounds (lb)</option>
+                <option value="oz" <%= typeof unit1 !== 'undefined' && unit1 === 'oz' ? 'selected' : '' %>>Ounces (oz)</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="unit2">To:</label>
+            <select name="unit2" id="unit2">
+                <option value="g" <%= typeof unit2 !== 'undefined' && unit2 === 'g' ? 'selected' : '' %>>Grams (g)</option>
+                <option value="kg" <%= typeof unit2 !== 'undefined' && unit2 === 'kg' ? 'selected' : '' %>>Kilograms (kg)</option>
+                <option value="lb" <%= typeof unit2 !== 'undefined' && unit2 === 'lb' ? 'selected' : '' %>>Pounds (lb)</option>
+                <option value="oz" <%= typeof unit2 !== 'undefined' && unit2 === 'oz' ? 'selected' : '' %>>Ounces (oz)</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="number">Enter the value:</label>
+            <input type="number" name="number" id="number" value="<%= typeof number !== 'undefined' ? number : '' %>" required>
+        </div>
+
+        <div>
+            <button type="submit">Convert</button>
+        </div>
     </form>
-    <% if (result) { %>
-        <p>Result: <%= result %></p>
+
+    <% if (typeof convertedValue !== 'undefined') { %>
+        <h3>Converted Value: <%= convertedValue %> <%= unit2 %></h3>
     <% } %>
+
+    <br><br>
+    <a href="/">Back to Main Page</a>
+
+    <script>
+        function updateUnit2Options() {
+            const unit1 = document.getElementById('unit1').value;
+            const unit2 = document.getElementById('unit2');
+            for (let i = 0; i < unit2.options.length; i++) {
+                unit2.options[i].disabled = unit2.options[i].value === unit1;
+            }
+        }
+        window.onload = updateUnit2Options;
+    </script>
 </body>
 </html>
