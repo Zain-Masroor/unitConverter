@@ -1,6 +1,6 @@
-/* General reset and base styling */
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family:monospace;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -22,7 +22,7 @@ body {
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 50px;
     margin-bottom: 20px;
     color: #333;
 }
@@ -31,18 +31,18 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 
 label {
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-bottom: 5px;
+    font-size: 20px;
 }
 
 select, input, button {
     margin: 10px 0;
     padding: 10px;
-    width: 100%;
+    width: 90%;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -57,7 +57,7 @@ button {
     background-color: #007BFF;
     color: #fff;
     cursor: pointer;
-    border: none;
+    border-radius: 30px;
     transition: background-color 0.3s ease;
 }
 
@@ -75,5 +75,5 @@ option:disabled {
 h3 {
     font-size: 20px;
     margin-top: 20px;
-    color: #333;
+    color: rebeccapurple;
 }
