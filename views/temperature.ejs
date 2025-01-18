@@ -1,27 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Conversion</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Temperature Converter</title>
 </head>
 <body>
-    <h1>Temperature Converter</h1>
+    <h1>Temperature Conversion</h1>
     <form action="/temperature" method="POST">
-        <input type="number" name="value" placeholder="Enter value" required>
-        <select name="fromUnit">
-            <option value="Celsius">Celsius</option>
-            <option value="Fahrenheit">Fahrenheit</option>
-            <option value="Kelvin">Kelvin</option>
-        </select>
-        <select name="toUnit">
-            <option value="Celsius">Celsius</option>
-            <option value="Fahrenheit">Fahrenheit</option>
-            <option value="Kelvin">Kelvin</option>
-        </select>
-        <button type="submit">Convert</button>
+        <div>
+            <label for="unit1">From:</label>
+            <select name="unit1" id="unit1" onchange="updateUnit2Options()">
+                <option value="C" <%= typeof unit1 !== 'undefined' && unit1 === 'C' ? 'selected' : '' %>>Celsius (°C)</option>
+                <option value="F" <%= typeof unit1 !== 'undefined' && unit1 === 'F' ? 'selected' : '' %>>Fahrenheit (°F)</option>
+                <option value="K" <%= typeof unit1 !== 'undefined' && unit1 === 'K' ? 'selected' : '' %>>Kelvin (K)</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="unit2">To:</label>
+            <select name="unit2" id="unit2">
+                <option value="C" <%= typeof unit2 !== 'undefined' && unit2 === 'C' ? 'selected' : '' %>>Celsius (°C)</option>
+                <option value="F" <%= typeof unit2 !== 'undefined' && unit2 === 'F' ? 'selected' : '' %>>Fahrenheit (°F)</option>
+                <option value="K" <%= typeof unit2 !== 'undefined' && unit2 === 'K' ? 'selected' : '' %>>Kelvin (K)</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="number">Enter the value:</label>
+            <input type="number" name="number" id="number" value="<%= typeof number !== 'undefined' ? number : '' %>" required>
+        </div>
+
+        <div>
+            <button type="submit">Convert</button>
+        </div>
     </form>
-    <% if (result) { %>
-        <p>Result: <%= result %> <%= toUnit %></p>
+
+    <% if (typeof convertedValue !== 'undefined') { %>
+        <h3>Converted Value: <%= convertedValue %> <%= unit2 %></h3>
     <% } %>
+
+    <br><br>
+    <a href="/">Back to Main Page</a>
+
+    <script>
+        function updateUnit2Options() {
+            const unit1 = document.getElementById('unit1').value;
+            const unit2 = document.getElementById('unit2');
+            for (let i = 0; i < unit2.options.length; i++) {
+                unit2.options[i].disabled = unit2.options[i].value === unit1;
+            }
+        }
+        // Call this function on page load to set initial state
+        window.onload = updateUnit2Options;
+    </script>
 </body>
 </html>
